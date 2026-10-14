@@ -1,0 +1,969 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lagos City Guide</title>
+  <meta name="description" content="A single-page guide to Lagos, Nigeria: neighbourhoods, food, things to do, seasons, events, getting around, phrases, a trip checklist and FAQs.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f4f1ea;
+      --surface: #ffffff;
+      --surface-2: #f9f7f2;
+      --text: #1d2321;
+      --muted: #5f6a66;
+      --border: #e3ded3;
+      --grid: #ece7dc;
+      --accent: #0f7b6c;
+      --accent-soft: #d8efe9;
+      --accent-text: #ffffff;
+      --sun: #b8741a;
+      --sun-soft: #f7e7cc;
+      --rain: #3b7dd8;
+      --rain-soft: #dce8f8;
+      --danger: #b3412e;
+      --hero-from: #0f7b6c;
+      --hero-to: #0b4f63;
+      --hero-text: #ffffff;
+      --shadow: 0 1px 2px rgba(0,0,0,.04), 0 8px 24px rgba(0,0,0,.06);
+      --radius: 16px;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme="light"]) {
+        --bg: #111615;
+        --surface: #1a201f;
+        --surface-2: #151b1a;
+        --text: #e9eeec;
+        --muted: #9aa6a2;
+        --border: #2a3331;
+        --grid: #26302e;
+        --accent: #3cc2ad;
+        --accent-soft: #173a35;
+        --accent-text: #0b1312;
+        --sun: #f2b75a;
+        --sun-soft: #3a2d17;
+        --rain: #6aa5f0;
+        --rain-soft: #1b2b40;
+        --danger: #ec7b65;
+        --hero-from: #0d5c52;
+        --hero-to: #0a3442;
+        --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
+      }
+    }
+    :root[data-theme="dark"] {
+      --bg: #111615;
+      --surface: #1a201f;
+      --surface-2: #151b1a;
+      --text: #e9eeec;
+      --muted: #9aa6a2;
+      --border: #2a3331;
+      --grid: #26302e;
+      --accent: #3cc2ad;
+      --accent-soft: #173a35;
+      --accent-text: #0b1312;
+      --sun: #f2b75a;
+      --sun-soft: #3a2d17;
+      --rain: #6aa5f0;
+      --rain-soft: #1b2b40;
+      --danger: #ec7b65;
+      --hero-from: #0d5c52;
+      --hero-to: #0a3442;
+      --shadow: 0 1px 2px rgba(0,0,0,.3), 0 8px 24px rgba(0,0,0,.3);
+    }
+
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: 76px; }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+      line-height: 1.55;
+      font-feature-settings: "tnum" 1;
+    }
+    a { color: var(--accent); }
+    .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+    .skip { position: absolute; left: 16px; top: -48px; background: var(--accent); color: var(--accent-text); padding: 8px 12px; border-radius: 8px; z-index: 50; }
+    .skip:focus { top: 12px; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+    /* ---------- Header & nav ---------- */
+    header.top {
+      position: sticky; top: 0; z-index: 20;
+      background: color-mix(in srgb, var(--bg) 88%, transparent);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .top-inner { display: flex; align-items: center; gap: 16px; height: 60px; }
+    .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; letter-spacing: -.01em; text-decoration: none; color: var(--text); white-space: nowrap; }
+    .brand-mark { width: 28px; height: 28px; border-radius: 8px; background: linear-gradient(135deg, var(--hero-from), var(--hero-to)); display: grid; place-items: center; color: #fff; font-size: 14px; }
+    nav.sections { flex: 1; min-width: 0; overflow-x: auto; scrollbar-width: none; }
+    nav.sections::-webkit-scrollbar { display: none; }
+    nav.sections ul { display: flex; gap: 4px; list-style: none; margin: 0; padding: 0; }
+    nav.sections a {
+      display: block; padding: 6px 10px; border-radius: 999px; font-size: 14px; font-weight: 500;
+      color: var(--muted); text-decoration: none; white-space: nowrap;
+    }
+    nav.sections a:hover { color: var(--text); background: var(--surface); }
+    nav.sections a.active { color: var(--accent); background: var(--accent-soft); }
+    .icon-btn {
+      flex: none; width: 36px; height: 36px; border-radius: 10px; border: 1px solid var(--border);
+      background: var(--surface); color: var(--text); cursor: pointer; display: grid; place-items: center;
+    }
+    .progress { position: absolute; left: 0; bottom: -1px; height: 2px; width: 0; background: var(--accent); }
+
+    /* ---------- Generic section ---------- */
+    main section.block { padding: 56px 0 8px; }
+    .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--accent); margin: 0 0 6px; }
+    h1, h2, h3 { letter-spacing: -.02em; line-height: 1.2; }
+    h2 { font-size: clamp(24px, 3.4vw, 32px); margin: 0 0 8px; }
+    h3 { font-size: 18px; margin: 0 0 6px; }
+    .lede { color: var(--muted); max-width: 64ch; margin: 0 0 24px; }
+    .card {
+      background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius);
+      box-shadow: var(--shadow); padding: 20px;
+    }
+    .grid { display: grid; gap: 16px; }
+    .grid-2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); }
+    .grid-3 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); }
+    .grid-4 { grid-template-columns: repeat(auto-fill, minmax(min(100%, 220px), 1fr)); }
+    .muted { color: var(--muted); }
+    .small { font-size: 14px; }
+    .chip {
+      display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 600;
+      padding: 3px 9px; border-radius: 999px; background: var(--surface-2); border: 1px solid var(--border); color: var(--muted);
+    }
+    .chip.island { background: var(--rain-soft); color: var(--text); border-color: transparent; }
+    .chip.mainland { background: var(--sun-soft); color: var(--text); border-color: transparent; }
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px; font: inherit; font-weight: 600; font-size: 14px;
+      padding: 9px 16px; border-radius: 10px; border: 1px solid var(--border); background: var(--surface);
+      color: var(--text); cursor: pointer; text-decoration: none;
+    }
+    .btn:hover { border-color: var(--accent); }
+    .btn.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+    .segmented { display: inline-flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+    .segmented button {
+      font: inherit; font-size: 14px; font-weight: 500; padding: 7px 14px; border-radius: 999px;
+      border: 1px solid var(--border); background: var(--surface); color: var(--muted); cursor: pointer;
+    }
+    .segmented button[aria-pressed="true"], .segmented button[aria-selected="true"] {
+      background: var(--accent); border-color: var(--accent); color: var(--accent-text);
+    }
+
+    /* ---------- Hero ---------- */
+    .hero {
+      margin-top: 24px; border-radius: 24px; color: var(--hero-text); overflow: hidden; position: relative;
+      background: linear-gradient(135deg, var(--hero-from), var(--hero-to));
+      padding: clamp(28px, 6vw, 64px) clamp(20px, 5vw, 56px);
+    }
+    .hero svg.skyline { position: absolute; right: 0; bottom: 0; width: min(560px, 80%); opacity: .18; pointer-events: none; }
+    .hero h1 { font-size: clamp(34px, 6vw, 56px); margin: 0 0 12px; max-width: 14ch; }
+    .hero p { max-width: 52ch; margin: 0 0 24px; opacity: .9; font-size: 17px; }
+    .hero .btn { background: #fff; color: #0b4f63; border-color: #fff; }
+    .hero .btn.ghost { background: transparent; color: #fff; border-color: rgba(255,255,255,.5); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 10px; position: relative; }
+    .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-top: 16px; }
+    .stat { padding: 16px; }
+    .stat .num { font-size: 26px; font-weight: 700; letter-spacing: -.02em; }
+    .stat .label { font-size: 13px; color: var(--muted); }
+
+    /* ---------- Overview ---------- */
+    dl.facts { display: grid; grid-template-columns: max-content 1fr; gap: 10px 20px; margin: 0; }
+    dl.facts dt { color: var(--muted); font-size: 14px; }
+    dl.facts dd { margin: 0; font-weight: 500; }
+
+    /* ---------- Neighbourhoods ---------- */
+    .hood { display: flex; flex-direction: column; gap: 8px; }
+    .hood-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+    .hood ul { margin: 4px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
+    .tool-row { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; margin-bottom: 16px; }
+    .tool-row .segmented { margin: 0; }
+    input[type="search"], input[type="text"], input[type="email"], select, textarea {
+      font: inherit; color: var(--text); background: var(--surface); border: 1px solid var(--border);
+      border-radius: 10px; padding: 9px 12px; width: 100%;
+    }
+    .search { max-width: 280px; }
+    .empty { display: none; padding: 24px; text-align: center; color: var(--muted); }
+
+    /* ---------- Food tabs ---------- */
+    [role="tabpanel"][hidden] { display: none; }
+    .dish { display: flex; gap: 14px; align-items: flex-start; }
+    .dish-icon { flex: none; width: 44px; height: 44px; border-radius: 12px; display: grid; place-items: center; font-size: 22px; background: var(--surface-2); border: 1px solid var(--border); }
+    .dish p { margin: 0; color: var(--muted); font-size: 14px; }
+    .heat { font-size: 12px; color: var(--muted); margin-top: 6px; }
+    .heat b { color: var(--danger); letter-spacing: 1px; }
+
+    /* ---------- Things to do ---------- */
+    .tile { overflow: hidden; padding: 0; display: flex; flex-direction: column; }
+    .tile-art { height: 120px; display: grid; place-items: center; font-size: 42px; }
+    .tile-body { padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+    .tile-body p { margin: 0; color: var(--muted); font-size: 14px; }
+    .tile-meta { margin-top: auto; padding-top: 8px; display: flex; gap: 6px; flex-wrap: wrap; }
+    .art-a { background: linear-gradient(135deg, #cfe9e2, #9fd2c5); }
+    .art-b { background: linear-gradient(135deg, #f6dfb8, #ecc07e); }
+    .art-c { background: linear-gradient(135deg, #d6e4f7, #a9c6ee); }
+    .art-d { background: linear-gradient(135deg, #ead7ef, #cfaedb); }
+    :root[data-theme="dark"] .tile-art { filter: brightness(.55) saturate(.9); }
+    @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .tile-art { filter: brightness(.55) saturate(.9); } }
+
+    /* ---------- Seasons chart ---------- */
+    .chart-wrap { position: relative; }
+    .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .chart .gridline { stroke: var(--grid); stroke-width: 1; }
+    .chart .axis-label { fill: var(--muted); font-size: 12px; }
+    .chart .bar { fill: var(--rain); }
+    .chart .bar.dim { opacity: .35; }
+    .chart .hit { fill: transparent; cursor: pointer; }
+    .chart .val { fill: var(--text); font-size: 12px; font-weight: 600; }
+    .tooltip {
+      position: absolute; pointer-events: none; background: var(--surface); border: 1px solid var(--border);
+      box-shadow: var(--shadow); border-radius: 10px; padding: 8px 10px; font-size: 13px; opacity: 0;
+      transform: translate(-50%, -100%); transition: opacity .12s; white-space: nowrap;
+    }
+    .tooltip b { display: block; }
+    .season-list { display: grid; gap: 12px; margin: 0; padding: 0; list-style: none; }
+    .season-list li { display: grid; grid-template-columns: 12px 1fr; gap: 12px; }
+    .season-dot { width: 12px; height: 12px; border-radius: 4px; margin-top: 6px; }
+    details.table-view { margin-top: 12px; }
+    details.table-view summary { cursor: pointer; color: var(--muted); font-size: 14px; }
+
+    /* ---------- Tables ---------- */
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 14px; }
+    th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border); vertical-align: top; }
+    th { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+    th button { all: unset; cursor: pointer; display: inline-flex; gap: 4px; align-items: center; }
+    th button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 4px; }
+    th[aria-sort="ascending"] button::after { content: "▲"; font-size: 9px; }
+    th[aria-sort="descending"] button::after { content: "▼"; font-size: 9px; }
+    tbody tr:hover { background: var(--surface-2); }
+    .meter { display: inline-flex; gap: 2px; vertical-align: middle; }
+    .meter i { width: 8px; height: 8px; border-radius: 2px; background: var(--grid); }
+    .meter i.on { background: var(--accent); }
+
+    /* ---------- Timeline ---------- */
+    .timeline { list-style: none; margin: 0; padding: 0; position: relative; }
+    .timeline::before { content: ""; position: absolute; left: 47px; top: 6px; bottom: 6px; width: 2px; background: var(--border); }
+    .timeline li { display: grid; grid-template-columns: 96px 1fr; gap: 16px; padding-bottom: 20px; position: relative; }
+    .timeline .when { font-weight: 700; font-size: 13px; text-align: center; background: var(--surface); border: 1px solid var(--border); border-radius: 999px; padding: 4px 0; height: fit-content; position: relative; z-index: 1; }
+    .timeline p { margin: 2px 0 0; color: var(--muted); font-size: 14px; }
+
+    /* ---------- Phrasebook ---------- */
+    .phrase { display: flex; justify-content: space-between; gap: 12px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border); }
+    .phrase:last-child { border-bottom: 0; }
+    .phrase .say { font-weight: 600; }
+    .phrase .mean { color: var(--muted); font-size: 14px; }
+    .copy { font-size: 12px; padding: 5px 10px; }
+
+    /* ---------- Checklist ---------- */
+    .check-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 8px; }
+    .bar-track { height: 8px; border-radius: 999px; background: var(--grid); overflow: hidden; margin-bottom: 16px; }
+    .bar-fill { height: 100%; width: 0; background: var(--accent); border-radius: 999px; transition: width .2s; }
+    .checklist { list-style: none; margin: 0; padding: 0; display: grid; gap: 4px; }
+    .checklist label { display: flex; gap: 10px; align-items: flex-start; padding: 8px 10px; border-radius: 10px; cursor: pointer; }
+    .checklist label:hover { background: var(--surface-2); }
+    .checklist input { accent-color: var(--accent); width: 18px; height: 18px; margin-top: 2px; flex: none; }
+    .checklist input:checked + span { color: var(--muted); text-decoration: line-through; }
+
+    /* ---------- FAQ ---------- */
+    .faq details { border-bottom: 1px solid var(--border); padding: 4px 0; }
+    .faq details:last-child { border-bottom: 0; }
+    .faq summary { cursor: pointer; list-style: none; display: flex; justify-content: space-between; gap: 12px; padding: 12px 0; font-weight: 600; }
+    .faq summary::-webkit-details-marker { display: none; }
+    .faq summary::after { content: "+"; color: var(--accent); font-size: 20px; line-height: 1; }
+    .faq details[open] summary::after { content: "–"; }
+    .faq details p { margin: 0 0 14px; color: var(--muted); }
+
+    /* ---------- Form ---------- */
+    form .field { display: grid; gap: 6px; margin-bottom: 14px; }
+    form label { font-size: 14px; font-weight: 500; }
+    .error { color: var(--danger); font-size: 13px; min-height: 1em; }
+    .form-ok { display: none; padding: 12px 14px; border-radius: 10px; background: var(--accent-soft); margin-top: 12px; }
+
+    /* ---------- Footer ---------- */
+    footer { margin-top: 64px; border-top: 1px solid var(--border); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
+    .foot { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 16px; }
+    .to-top {
+      position: fixed; right: 16px; bottom: 16px; z-index: 15; opacity: 0; pointer-events: none; transition: opacity .2s;
+      box-shadow: var(--shadow);
+    }
+    .to-top.show { opacity: 1; pointer-events: auto; }
+
+    .toast {
+      position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%) translateY(20px);
+      background: var(--text); color: var(--bg); padding: 10px 16px; border-radius: 10px; font-size: 14px;
+      opacity: 0; transition: opacity .2s, transform .2s; z-index: 30; pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 640px) {
+      .brand-name { display: none; }
+      dl.facts { grid-template-columns: 1fr; gap: 2px; }
+      dl.facts dd { margin-bottom: 10px; }
+      .timeline::before { left: 35px; }
+      .timeline li { grid-template-columns: 72px 1fr; gap: 12px; }
+      .search { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="top">
+    <div class="wrap top-inner">
+      <a class="brand" href="#overview" aria-label="Lagos City Guide, back to top">
+        <span class="brand-mark" aria-hidden="true">L</span>
+        <span class="brand-name">Lagos Guide</span>
+      </a>
+      <nav class="sections" aria-label="Sections">
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#neighbourhoods">Areas</a></li>
+          <li><a href="#food">Food</a></li>
+          <li><a href="#todo">Things to do</a></li>
+          <li><a href="#seasons">Seasons</a></li>
+          <li><a href="#events">Events</a></li>
+          <li><a href="#transport">Getting around</a></li>
+          <li><a href="#phrases">Phrases</a></li>
+          <li><a href="#checklist">Checklist</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <button class="icon-btn" id="themeBtn" type="button" aria-label="Toggle dark mode">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>
+      </button>
+    </div>
+    <div class="progress" id="progress" aria-hidden="true"></div>
+  </header>
+
+  <main id="main" class="wrap">
+
+    <!-- ===================== 1. HERO / OVERVIEW ===================== -->
+    <section id="overview" aria-labelledby="heroTitle">
+      <div class="hero">
+        <svg class="skyline" viewBox="0 0 560 200" fill="#fff" aria-hidden="true">
+          <rect x="10" y="120" width="40" height="80"/><rect x="58" y="80" width="34" height="120"/>
+          <rect x="100" y="40" width="46" height="160"/><rect x="154" y="100" width="30" height="100"/>
+          <rect x="192" y="20" width="38" height="180"/><rect x="238" y="70" width="52" height="130"/>
+          <rect x="298" y="110" width="28" height="90"/><rect x="334" y="50" width="44" height="150"/>
+          <rect x="386" y="90" width="36" height="110"/><rect x="430" y="30" width="40" height="170"/>
+          <rect x="478" y="100" width="30" height="100"/><rect x="516" y="130" width="40" height="70"/>
+        </svg>
+        <p class="eyebrow" style="color:#bfeee5">City guide · Nigeria</p>
+        <h1 id="heroTitle">Lagos, all on one page</h1>
+        <p>Lagoons, beaches, live music and some of West Africa's best street food. This guide covers where to stay, what to eat, when to go and how to get around.</p>
+        <div class="hero-actions">
+          <a class="btn" href="#neighbourhoods">Explore areas</a>
+          <a class="btn ghost" href="#checklist">Plan a trip</a>
+          <a class="btn ghost" href="index.html">Today's weather</a>
+        </div>
+      </div>
+
+      <div class="stats">
+        <div class="card stat"><div class="num">15M+</div><div class="label">Metro population (estimates vary)</div></div>
+        <div class="card stat"><div class="num">20</div><div class="label">Local government areas</div></div>
+        <div class="card stat"><div class="num">~27°C</div><div class="label">Typical daily average</div></div>
+        <div class="card stat"><div class="num">₦</div><div class="label">Currency: Nigerian naira</div></div>
+      </div>
+
+      <div class="grid grid-2" style="margin-top:16px">
+        <div class="card">
+          <h3>At a glance</h3>
+          <dl class="facts">
+            <dt>Country</dt><dd>Nigeria (Lagos State)</dd>
+            <dt>Languages</dt><dd>English (official), Yoruba, Nigerian Pidgin</dd>
+            <dt>Time zone</dt><dd>West Africa Time, UTC+1, no daylight saving</dd>
+            <dt>Main airport</dt><dd>Murtala Muhammed International (LOS), Ikeja</dd>
+            <dt>Power</dt><dd>230 V, 50 Hz, UK-style Type G plugs common</dd>
+            <dt>Calling code</dt><dd>+234</dd>
+          </dl>
+        </div>
+        <div class="card">
+          <h3>The city in brief</h3>
+          <p class="muted small" style="margin-top:0">Lagos is Nigeria's largest city and its commercial capital. It sits on a chain of islands and mainland districts wrapped around Lagos Lagoon, linked by long bridges such as the Third Mainland Bridge.</p>
+          <p class="muted small">Locals usually split the city into <strong>the Island</strong> (Lagos Island, Ikoyi, Victoria Island, Lekki), with business districts, beaches and nightlife, and <strong>the Mainland</strong> (Ikeja, Yaba, Surulere and beyond), where most people live and where you'll find the tech scene, markets and the airport.</p>
+          <p class="muted small" style="margin-bottom:0">Traffic, known locally as "go-slow", shapes every plan. Group activities by area and leave plenty of buffer time.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 2. NEIGHBOURHOODS ===================== -->
+    <section id="neighbourhoods" class="block" aria-labelledby="hoodTitle">
+      <p class="eyebrow">Where to stay &amp; wander</p>
+      <h2 id="hoodTitle">Neighbourhoods</h2>
+      <p class="lede">Each district has its own character. Filter by side of the lagoon or search for what you're after.</p>
+
+      <div class="tool-row">
+        <div class="segmented" role="group" aria-label="Filter by side">
+          <button type="button" data-side="all" aria-pressed="true">All</button>
+          <button type="button" data-side="island" aria-pressed="false">Island</button>
+          <button type="button" data-side="mainland" aria-pressed="false">Mainland</button>
+        </div>
+        <label class="search">
+          <span class="sr-only">Search neighbourhoods</span>
+          <input type="search" id="hoodSearch" placeholder="Search e.g. beach, tech, market">
+        </label>
+      </div>
+
+      <div class="grid grid-3" id="hoodGrid">
+        <article class="card hood" data-side="island" data-tags="business hotels restaurants nightlife beach bar">
+          <div class="hood-head"><h3>Victoria Island</h3><span class="chip island">Island</span></div>
+          <p class="muted small" style="margin:0">Banks, embassies, high-end hotels and a dense restaurant and bar scene.</p>
+          <ul><li>Good base for first-time visitors</li><li>Close to Eko Atlantic and Bar Beach</li><li>Lively after dark</li></ul>
+        </article>
+        <article class="card hood" data-side="island" data-tags="quiet leafy upscale golf hotels">
+          <div class="hood-head"><h3>Ikoyi</h3><span class="chip island">Island</span></div>
+          <p class="muted small" style="margin:0">Leafy, quieter and upscale, with boutique hotels and art spaces.</p>
+          <ul><li>Calmer streets</li><li>Galleries and cafés</li><li>Short hop to VI</li></ul>
+        </article>
+        <article class="card hood" data-side="island" data-tags="beach nature market art shopping new">
+          <div class="hood-head"><h3>Lekki</h3><span class="chip island">Island</span></div>
+          <p class="muted small" style="margin:0">A long, fast-growing peninsula of estates, malls, beaches and the Lekki Conservation Centre.</p>
+          <ul><li>Beaches further east</li><li>Lekki Arts &amp; Crafts Market</li><li>Traffic on the expressway</li></ul>
+        </article>
+        <article class="card hood" data-side="island" data-tags="history market museum culture shopping">
+          <div class="hood-head"><h3>Lagos Island</h3><span class="chip island">Island</span></div>
+          <p class="muted small" style="margin:0">The old heart of the city: markets, colonial-era buildings and Freedom Park.</p>
+          <ul><li>Balogun Market</li><li>Freedom Park</li><li>Busy and crowded by day</li></ul>
+        </article>
+        <article class="card hood" data-side="mainland" data-tags="tech startups university students cafe">
+          <div class="hood-head"><h3>Yaba</h3><span class="chip mainland">Mainland</span></div>
+          <p class="muted small" style="margin:0">Student energy and Nigeria's best-known tech cluster, with markets and cheap eats.</p>
+          <ul><li>Startup hubs and co-working</li><li>University of Lagos nearby</li><li>Tejuosho and Yaba markets</li></ul>
+        </article>
+        <article class="card hood" data-side="mainland" data-tags="airport shopping business music history">
+          <div class="hood-head"><h3>Ikeja</h3><span class="chip mainland">Mainland</span></div>
+          <p class="muted small" style="margin:0">The state capital, home to the airport, large malls and Computer Village.</p>
+          <ul><li>Handy for early flights</li><li>Kalakuta Museum</li><li>Allen Avenue dining</li></ul>
+        </article>
+        <article class="card hood" data-side="mainland" data-tags="football stadium music nightlife food">
+          <div class="hood-head"><h3>Surulere</h3><span class="chip mainland">Mainland</span></div>
+          <p class="muted small" style="margin:0">A classic residential district known for football, music and nightlife.</p>
+          <ul><li>Teslim Balogun Stadium</li><li>Busy local bars</li><li>Great suya spots</li></ul>
+        </article>
+        <article class="card hood" data-side="mainland" data-tags="water lagoon stilts community">
+          <div class="hood-head"><h3>Makoko</h3><span class="chip mainland">Mainland</span></div>
+          <p class="muted small" style="margin:0">A waterfront community built on stilts over the lagoon.</p>
+          <ul><li>Visit only with a local guide</li><li>Ask before photographing people</li><li>Best seen by canoe</li></ul>
+        </article>
+      </div>
+      <p class="empty card" id="hoodEmpty">No neighbourhoods match that search.</p>
+    </section>
+
+    <!-- ===================== 3. FOOD (TABS) ===================== -->
+    <section id="food" class="block" aria-labelledby="foodTitle">
+      <p class="eyebrow">Eat like a Lagosian</p>
+      <h2 id="foodTitle">Food &amp; drink</h2>
+      <p class="lede">Nigerian food is bold, filling and often spicy. Here's where to start, grouped by type.</p>
+
+      <div class="segmented" role="tablist" aria-label="Food categories">
+        <button type="button" role="tab" id="tab-street" aria-controls="panel-street" aria-selected="true">Street food</button>
+        <button type="button" role="tab" id="tab-rice" aria-controls="panel-rice" aria-selected="false" tabindex="-1">Rice dishes</button>
+        <button type="button" role="tab" id="tab-soup" aria-controls="panel-soup" aria-selected="false" tabindex="-1">Soups &amp; swallows</button>
+        <button type="button" role="tab" id="tab-drinks" aria-controls="panel-drinks" aria-selected="false" tabindex="-1">Drinks &amp; sweets</button>
+      </div>
+
+      <div role="tabpanel" id="panel-street" aria-labelledby="tab-street" class="grid grid-2">
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🍢</div><div><h3>Suya</h3><p>Thin skewers of beef or chicken rubbed with yaji, a ground peanut and chilli spice, grilled over open flame and served with raw onion.</p><div class="heat">Heat <b>●●●○</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🍌</div><div><h3>Boli &amp; groundnut</h3><p>Roasted plantain, often paired with roasted peanuts or a peppery fish sauce. A classic roadside snack.</p><div class="heat">Heat <b>●○○○</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🫘</div><div><h3>Akara</h3><p>Deep-fried bean fritters, crisp outside and fluffy inside. Usually eaten for breakfast with pap or bread.</p><div class="heat">Heat <b>●●○○</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🍞</div><div><h3>Agege bread</h3><p>Soft, dense, slightly sweet bread named after a Lagos suburb. Great with akara or a spicy egg sauce.</p><div class="heat">Heat <b>○○○○</b></div></div></div>
+      </div>
+
+      <div role="tabpanel" id="panel-rice" aria-labelledby="tab-rice" class="grid grid-2" hidden>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🍛</div><div><h3>Jollof rice</h3><p>Rice cooked in a smoky tomato and pepper base. "Party jollof" cooked over firewood is the gold standard.</p><div class="heat">Heat <b>●●○○</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🌶️</div><div><h3>Ofada rice &amp; ayamase</h3><p>Local unpolished rice served with a green-pepper and locust-bean stew, often wrapped in leaves.</p><div class="heat">Heat <b>●●●●</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🥕</div><div><h3>Fried rice</h3><p>Nigerian-style fried rice with mixed vegetables and liver, served alongside jollof at almost every party.</p><div class="heat">Heat <b>●○○○</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🥥</div><div><h3>Coconut rice</h3><p>Rice simmered in coconut milk, mildly sweet and usually served with fried fish or chicken.</p><div class="heat">Heat <b>●○○○</b></div></div></div>
+      </div>
+
+      <div role="tabpanel" id="panel-soup" aria-labelledby="tab-soup" class="grid grid-2" hidden>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🥬</div><div><h3>Efo riro</h3><p>A rich Yoruba spinach stew with peppers, palm oil and assorted meats or fish.</p><div class="heat">Heat <b>●●●○</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🍲</div><div><h3>Amala &amp; ewedu</h3><p>A dark, smooth yam-flour swallow served with jute-leaf soup and gbegiri bean soup.</p><div class="heat">Heat <b>●●○○</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🥜</div><div><h3>Egusi</h3><p>Ground melon-seed soup with leafy greens, eaten with pounded yam, eba or fufu.</p><div class="heat">Heat <b>●●○○</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🐟</div><div><h3>Pepper soup</h3><p>A light, very spicy broth with goat meat, catfish or chicken. Popular in the evening with a cold drink.</p><div class="heat">Heat <b>●●●●</b></div></div></div>
+      </div>
+
+      <div role="tabpanel" id="panel-drinks" aria-labelledby="tab-drinks" class="grid grid-2" hidden>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🍹</div><div><h3>Zobo</h3><p>A chilled hibiscus drink, often spiced with ginger and pineapple.</p><div class="heat">Sugar <b style="color:var(--sun)">●●●○</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🥤</div><div><h3>Chapman</h3><p>A fruity, bitters-laced mocktail served in tall glasses with cucumber and citrus.</p><div class="heat">Sugar <b style="color:var(--sun)">●●●●</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🍩</div><div><h3>Puff-puff</h3><p>Sweet, fried dough balls sold by the bag. Hard to stop at one.</p><div class="heat">Sugar <b style="color:var(--sun)">●●●○</b></div></div></div>
+        <div class="card dish"><div class="dish-icon" aria-hidden="true">🥛</div><div><h3>Kunu</h3><p>A smooth millet or sorghum drink, lightly spiced and served cold.</p><div class="heat">Sugar <b style="color:var(--sun)">●●○○</b></div></div></div>
+      </div>
+    </section>
+
+    <!-- ===================== 4. THINGS TO DO ===================== -->
+    <section id="todo" class="block" aria-labelledby="todoTitle">
+      <p class="eyebrow">See &amp; do</p>
+      <h2 id="todoTitle">Things to do</h2>
+      <p class="lede">A mix of nature, art, history and the beach. Most are best done in the morning, before the heat and traffic peak.</p>
+
+      <div class="grid grid-4">
+        <article class="card tile"><div class="tile-art art-a" aria-hidden="true">🌳</div><div class="tile-body"><h3>Lekki Conservation Centre</h3><p>Boardwalks through wetland forest and one of Africa's longest canopy walkways.</p><div class="tile-meta"><span class="chip">Nature</span><span class="chip">Half day</span></div></div></article>
+        <article class="card tile"><div class="tile-art art-d" aria-hidden="true">🎨</div><div class="tile-body"><h3>Nike Art Gallery</h3><p>Five floors of Nigerian art, from textiles and adire to large modern paintings.</p><div class="tile-meta"><span class="chip">Art</span><span class="chip">2 hours</span></div></div></article>
+        <article class="card tile"><div class="tile-art art-c" aria-hidden="true">🏖️</div><div class="tile-body"><h3>Tarkwa Bay</h3><p>A sheltered beach reached by boat from the Island, calmer than the open Atlantic shore.</p><div class="tile-meta"><span class="chip">Beach</span><span class="chip">Full day</span></div></div></article>
+        <article class="card tile"><div class="tile-art art-b" aria-hidden="true">🎷</div><div class="tile-body"><h3>Kalakuta Museum</h3><p>The former home of Afrobeat pioneer Fela Kuti, now a museum with a rooftop bar.</p><div class="tile-meta"><span class="chip">Music</span><span class="chip">2 hours</span></div></div></article>
+        <article class="card tile"><div class="tile-art art-a" aria-hidden="true">🏛️</div><div class="tile-body"><h3>Freedom Park</h3><p>A former colonial prison turned leafy park for concerts, art and history exhibits.</p><div class="tile-meta"><span class="chip">History</span><span class="chip">1–2 hours</span></div></div></article>
+        <article class="card tile"><div class="tile-art art-b" aria-hidden="true">🛍️</div><div class="tile-body"><h3>Balogun Market</h3><p>A sprawling, intense market for fabrics, shoes and everything else. Go with a local if you can.</p><div class="tile-meta"><span class="chip">Shopping</span><span class="chip">Half day</span></div></div></article>
+        <article class="card tile"><div class="tile-art art-d" aria-hidden="true">🗿</div><div class="tile-body"><h3>National Museum</h3><p>Archaeological and ethnographic collections from across Nigeria, in Onikan.</p><div class="tile-meta"><span class="chip">Culture</span><span class="chip">2 hours</span></div></div></article>
+        <article class="card tile"><div class="tile-art art-c" aria-hidden="true">🌅</div><div class="tile-body"><h3>Lagoon at sunset</h3><p>Watch the sun drop over the lagoon from a waterside bar or a boat cruise.</p><div class="tile-meta"><span class="chip">Relax</span><span class="chip">Evening</span></div></div></article>
+      </div>
+    </section>
+
+    <!-- ===================== 5. SEASONS (CHART) ===================== -->
+    <section id="seasons" class="block" aria-labelledby="seasonsTitle">
+      <p class="eyebrow">When to go</p>
+      <h2 id="seasonsTitle">Seasons &amp; rainfall</h2>
+      <p class="lede">Lagos is hot all year. Rain, not temperature, is what changes, with a main wet season peaking in June and a shorter one around October.</p>
+
+      <div class="grid grid-2">
+        <div class="card chart-wrap">
+          <h3>Average monthly rainfall (mm)</h3>
+          <p class="muted small" style="margin-top:0">Approximate long-term averages. Hover or tap a bar for details.</p>
+          <div class="chart" id="rainChart" role="img" aria-label="Bar chart of average monthly rainfall in Lagos, peaking in June at about 320 millimetres and lowest in December and January at about 15 millimetres."></div>
+          <div class="tooltip" id="rainTip" role="status" aria-live="polite"></div>
+          <details class="table-view">
+            <summary>Show as table</summary>
+            <div class="table-scroll"><table id="rainTable"><thead><tr><th>Month</th><th>Rainfall (mm)</th><th>Season</th></tr></thead><tbody></tbody></table></div>
+          </details>
+        </div>
+        <div class="card">
+          <h3>The year in four parts</h3>
+          <ul class="season-list">
+            <li><span class="season-dot" style="background:var(--sun)"></span><div><strong>Dry season · Nov–Mar</strong><div class="muted small">Sunny and humid. The most popular time to visit, especially December.</div></div></li>
+            <li><span class="season-dot" style="background:var(--muted)"></span><div><strong>Harmattan · Dec–Feb</strong><div class="muted small">Dusty winds from the Sahara bring hazy skies and slightly cooler mornings.</div></div></li>
+            <li><span class="season-dot" style="background:var(--rain)"></span><div><strong>Long rains · Apr–Jul</strong><div class="muted small">Heavy downpours and flash flooding, especially in June. Plan indoor backups.</div></div></li>
+            <li><span class="season-dot" style="background:var(--accent)"></span><div><strong>Short rains · Sep–Oct</strong><div class="muted small">A second, shorter wet spell after a drier August break.</div></div></li>
+          </ul>
+          <p class="muted small" style="margin-bottom:0">Need today's conditions? See the <a href="index.html">live Lagos weather page</a>.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 6. EVENTS (TIMELINE) ===================== -->
+    <section id="events" class="block" aria-labelledby="eventsTitle">
+      <p class="eyebrow">Calendar</p>
+      <h2 id="eventsTitle">Events through the year</h2>
+      <p class="lede">Dates shift from year to year, so check the organisers' announcements before you book.</p>
+
+      <div class="card">
+        <ol class="timeline">
+          <li><span class="when">Feb</span><div><h3>Lagos City Marathon</h3><p>Thousands of runners cross the city, with a route that has ended near Eko Atlantic.</p></div></li>
+          <li><span class="when">Easter</span><div><h3>Beach holidays</h3><p>The long weekend sends crowds to the beaches and resorts east of Lekki.</p></div></li>
+          <li><span class="when">Jun 12</span><div><h3>Democracy Day</h3><p>A national public holiday, with events and speeches across the country.</p></div></li>
+          <li><span class="when">Oct 1</span><div><h3>Independence Day</h3><p>Nigeria marks independence from Britain in 1960.</p></div></li>
+          <li><span class="when">Oct</span><div><h3>Felabration &amp; Lagos Fashion Week</h3><p>A week of concerts celebrating Fela Kuti around his birthday, and the city's main fashion showcase.</p></div></li>
+          <li><span class="when">Nov</span><div><h3>Art season</h3><p>Art fairs and gallery openings fill the late-year calendar on the Island.</p></div></li>
+          <li><span class="when">Dec</span><div><h3>"Detty December"</h3><p>The diaspora comes home for weeks of concerts, weddings and parties. Book flights and rooms early.</p></div></li>
+        </ol>
+      </div>
+    </section>
+
+    <!-- ===================== 7. TRANSPORT (SORTABLE TABLE) ===================== -->
+    <section id="transport" class="block" aria-labelledby="transportTitle">
+      <p class="eyebrow">Getting around</p>
+      <h2 id="transportTitle">Ways to get around</h2>
+      <p class="lede">Select a column heading to sort. Cost and comfort are rough, relative ratings for a short trip.</p>
+
+      <div class="card table-scroll">
+        <table id="transportTable">
+          <thead>
+            <tr>
+              <th aria-sort="none"><button type="button" data-key="0">Mode</button></th>
+              <th aria-sort="none"><button type="button" data-key="1" data-num>Cost</button></th>
+              <th aria-sort="none"><button type="button" data-key="2" data-num>Comfort</button></th>
+              <th>Good for</th>
+              <th>Watch out for</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Ride-hailing apps</td><td data-v="4"></td><td data-v="4"></td><td>Most visitors, door to door</td><td>Surge pricing in rain and rush hour</td></tr>
+            <tr><td>BRT bus</td><td data-v="1"></td><td data-v="3"></td><td>Long trips on dedicated lanes</td><td>Crowding at peak times</td></tr>
+            <tr><td>Lagos Rail (Blue &amp; Red lines)</td><td data-v="1"></td><td data-v="4"></td><td>Skipping traffic on the routes it covers</td><td>Limited network and hours</td></tr>
+            <tr><td>Ferry / water taxi</td><td data-v="2"></td><td data-v="3"></td><td>Island–Mainland hops, beach trips</td><td>Always wear the life jacket</td></tr>
+            <tr><td>Danfo minibus</td><td data-v="1"></td><td data-v="1"></td><td>The full local experience</td><td>Routes are informal; ask a local</td></tr>
+            <tr><td>Keke (tricycle)</td><td data-v="1"></td><td data-v="2"></td><td>Short neighbourhood trips</td><td>Banned on some major roads</td></tr>
+            <tr><td>Private driver</td><td data-v="5"></td><td data-v="5"></td><td>Full-day itineraries</td><td>Agree the price and hours up front</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===================== 8. PHRASEBOOK ===================== -->
+    <section id="phrases" class="block" aria-labelledby="phrasesTitle">
+      <p class="eyebrow">Say it right</p>
+      <h2 id="phrasesTitle">Useful phrases</h2>
+      <p class="lede">English works everywhere, but a little Yoruba or Pidgin goes a long way. Use the button to copy a phrase.</p>
+
+      <div class="grid grid-2">
+        <div class="card">
+          <h3>Yoruba</h3>
+          <div class="phrase"><div><div class="say">Ẹ káàárọ̀</div><div class="mean">Good morning (respectful)</div></div><button class="btn copy" type="button">Copy</button></div>
+          <div class="phrase"><div><div class="say">Ẹ ṣé</div><div class="mean">Thank you (respectful)</div></div><button class="btn copy" type="button">Copy</button></div>
+          <div class="phrase"><div><div class="say">Ẹ kú iṣẹ́</div><div class="mean">Well done (greeting to someone working)</div></div><button class="btn copy" type="button">Copy</button></div>
+          <div class="phrase"><div><div class="say">Èlò ni?</div><div class="mean">How much is it?</div></div><button class="btn copy" type="button">Copy</button></div>
+          <div class="phrase"><div><div class="say">Ó dàbọ̀</div><div class="mean">Goodbye</div></div><button class="btn copy" type="button">Copy</button></div>
+        </div>
+        <div class="card">
+          <h3>Nigerian Pidgin</h3>
+          <div class="phrase"><div><div class="say">How far?</div><div class="mean">Hi, how are you?</div></div><button class="btn copy" type="button">Copy</button></div>
+          <div class="phrase"><div><div class="say">I dey kampe</div><div class="mean">I'm doing fine</div></div><button class="btn copy" type="button">Copy</button></div>
+          <div class="phrase"><div><div class="say">Abeg</div><div class="mean">Please</div></div><button class="btn copy" type="button">Copy</button></div>
+          <div class="phrase"><div><div class="say">Wetin dey happen?</div><div class="mean">What's going on?</div></div><button class="btn copy" type="button">Copy</button></div>
+          <div class="phrase"><div><div class="say">No wahala</div><div class="mean">No problem</div></div><button class="btn copy" type="button">Copy</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== 9. CHECKLIST ===================== -->
+    <section id="checklist" class="block" aria-labelledby="checkTitle">
+      <p class="eyebrow">Before you fly</p>
+      <h2 id="checkTitle">Trip checklist</h2>
+      <p class="lede">Tick items off as you go. Your progress is saved in this browser.</p>
+
+      <div class="card">
+        <div class="check-head">
+          <strong id="checkCount">0 of 0 done</strong>
+          <button class="btn" type="button" id="checkReset">Reset</button>
+        </div>
+        <div class="bar-track" aria-hidden="true"><div class="bar-fill" id="checkBar"></div></div>
+        <ul class="checklist" id="checkList">
+          <li><label><input type="checkbox" data-id="visa"><span>Check visa requirements and apply in good time</span></label></li>
+          <li><label><input type="checkbox" data-id="yellow"><span>Carry your yellow fever vaccination certificate</span></label></li>
+          <li><label><input type="checkbox" data-id="malaria"><span>Ask a doctor about malaria prevention</span></label></li>
+          <li><label><input type="checkbox" data-id="insurance"><span>Buy travel insurance that covers medical evacuation</span></label></li>
+          <li><label><input type="checkbox" data-id="cash"><span>Plan how you'll pay: cards, transfers and some cash</span></label></li>
+          <li><label><input type="checkbox" data-id="sim"><span>Get a local SIM or eSIM on arrival</span></label></li>
+          <li><label><input type="checkbox" data-id="power"><span>Pack a Type G adapter and a power bank</span></label></li>
+          <li><label><input type="checkbox" data-id="ride"><span>Install a ride-hailing app before you land</span></label></li>
+          <li><label><input type="checkbox" data-id="rain"><span>Bring a light rain jacket for the wet season</span></label></li>
+          <li><label><input type="checkbox" data-id="sun"><span>Sunscreen, a hat and a refillable water bottle</span></label></li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- ===================== 10. FAQ ===================== -->
+    <section id="faq" class="block" aria-labelledby="faqTitle">
+      <p class="eyebrow">Good to know</p>
+      <h2 id="faqTitle">Frequently asked questions</h2>
+      <p class="lede">Quick answers to the questions first-time visitors ask most.</p>
+
+      <div class="card faq">
+        <details open><summary>Is Lagos safe for visitors?</summary><p>Most visits are trouble-free, but use common sense: travel by ride-hailing or a trusted driver at night, keep valuables out of sight and check your government's latest travel advice before you go.</p></details>
+        <details><summary>Can I drink the tap water?</summary><p>No. Stick to bottled or sachet ("pure") water, which is cheap and sold everywhere.</p></details>
+        <details><summary>How much should I tip?</summary><p>Tipping isn't required, but around 10% at restaurants and small tips for hotel staff and drivers are appreciated.</p></details>
+        <details><summary>Do I need to haggle?</summary><p>At markets and with informal transport, yes. Stay friendly, start well below the first price and meet in the middle.</p></details>
+        <details><summary>Will my phone work?</summary><p>International roaming can be expensive. A local SIM from one of the major networks is the easiest way to get data; bring your passport to register it.</p></details>
+        <details><summary>What should I wear?</summary><p>Light, breathable clothing. Lagos is fashion-conscious, so people dress up for dinner, church and events.</p></details>
+      </div>
+    </section>
+
+    <!-- ===================== 11. CONTACT FORM ===================== -->
+    <section id="contact" class="block" aria-labelledby="contactTitle">
+      <p class="eyebrow">Get in touch</p>
+      <h2 id="contactTitle">Suggest a place</h2>
+      <p class="lede">Know a spot that belongs in this guide? This demo form checks your input in the browser and doesn't send anything.</p>
+
+      <div class="grid grid-2">
+        <form class="card" id="contactForm" novalidate>
+          <div class="field">
+            <label for="fName">Your name</label>
+            <input type="text" id="fName" name="name" autocomplete="name" required>
+            <span class="error" id="fNameErr"></span>
+          </div>
+          <div class="field">
+            <label for="fEmail">Email</label>
+            <input type="email" id="fEmail" name="email" autocomplete="email" required>
+            <span class="error" id="fEmailErr"></span>
+          </div>
+          <div class="field">
+            <label for="fType">Category</label>
+            <select id="fType" name="type">
+              <option>Food &amp; drink</option>
+              <option>Things to do</option>
+              <option>Neighbourhood tip</option>
+              <option>Something else</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="fMsg">Your suggestion</label>
+            <textarea id="fMsg" name="message" rows="4" required></textarea>
+            <span class="error" id="fMsgErr"></span>
+          </div>
+          <button class="btn primary" type="submit">Check suggestion</button>
+          <div class="form-ok" id="formOk" role="status"></div>
+        </form>
+        <div class="card">
+          <h3>What makes a good tip</h3>
+          <ul class="muted small" style="padding-left:18px; margin:0">
+            <li>The neighbourhood it's in and how to get there</li>
+            <li>What to order or see, and roughly what it costs</li>
+            <li>The best time of day or year to go</li>
+            <li>Anything a first-timer should know</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap foot">
+      <span>Lagos City Guide · Information is general and may change, so confirm details before travelling.</span>
+      <span><a href="index.html">Weather</a> · <a href="#overview">Back to top</a></span>
+    </div>
+  </footer>
+
+  <button class="btn to-top" id="toTop" type="button" aria-label="Back to top">↑ Top</button>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function () {
+      var root = document.documentElement;
+
+      function store(key, val) {
+        try {
+          if (val === undefined) return localStorage.getItem(key);
+          localStorage.setItem(key, val);
+        } catch (e) { return null; }
+      }
+
+      var toastEl = document.getElementById('toast'), toastTimer;
+      function toast(msg) {
+        toastEl.textContent = msg;
+        toastEl.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(function () { toastEl.classList.remove('show'); }, 1800);
+      }
+
+      /* ---------- Theme ---------- */
+      var savedTheme = store('lagosGuideTheme');
+      if (savedTheme === 'light' || savedTheme === 'dark') root.setAttribute('data-theme', savedTheme);
+      document.getElementById('themeBtn').addEventListener('click', function () {
+        var current = root.getAttribute('data-theme') ||
+          (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        var next = current === 'dark' ? 'light' : 'dark';
+        root.setAttribute('data-theme', next);
+        store('lagosGuideTheme', next);
+      });
+
+      /* ---------- Scroll progress, scrollspy, back to top ---------- */
+      var progress = document.getElementById('progress');
+      var toTop = document.getElementById('toTop');
+      var navLinks = Array.prototype.slice.call(document.querySelectorAll('nav.sections a'));
+      var sections = navLinks.map(function (a) { return document.querySelector(a.getAttribute('href')); });
+
+      function onScroll() {
+        var max = document.documentElement.scrollHeight - innerHeight;
+        progress.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + '%';
+        toTop.classList.toggle('show', scrollY > 600);
+
+        var current = 0;
+        sections.forEach(function (s, i) { if (s && s.getBoundingClientRect().top < 120) current = i; });
+        if (scrollY >= max - 4) current = sections.length - 1;
+        navLinks.forEach(function (a, i) {
+          var on = i === current;
+          a.classList.toggle('active', on);
+          if (on) a.setAttribute('aria-current', 'true'); else a.removeAttribute('aria-current');
+        });
+      }
+      addEventListener('scroll', onScroll, { passive: true });
+      addEventListener('resize', onScroll);
+      onScroll();
+      toTop.addEventListener('click', function () { scrollTo({ top: 0 }); });
+
+      /* ---------- Neighbourhood filter ---------- */
+      var sideBtns = document.querySelectorAll('[data-side][aria-pressed]');
+      var hoods = document.querySelectorAll('#hoodGrid .hood');
+      var search = document.getElementById('hoodSearch');
+      var empty = document.getElementById('hoodEmpty');
+      var side = 'all';
+
+      function filterHoods() {
+        var q = search.value.trim().toLowerCase(), shown = 0;
+        hoods.forEach(function (h) {
+          var text = (h.textContent + ' ' + h.dataset.tags).toLowerCase();
+          var ok = (side === 'all' || h.dataset.side === side) && (!q || text.indexOf(q) !== -1);
+          h.style.display = ok ? '' : 'none';
+          if (ok) shown++;
+        });
+        empty.style.display = shown ? 'none' : 'block';
+      }
+      sideBtns.forEach(function (b) {
+        b.addEventListener('click', function () {
+          side = b.dataset.side;
+          sideBtns.forEach(function (x) { x.setAttribute('aria-pressed', String(x === b)); });
+          filterHoods();
+        });
+      });
+      search.addEventListener('input', filterHoods);
+
+      /* ---------- Food tabs ---------- */
+      var tabs = Array.prototype.slice.call(document.querySelectorAll('[role="tab"]'));
+      function selectTab(tab) {
+        tabs.forEach(function (t) {
+          var on = t === tab;
+          t.setAttribute('aria-selected', String(on));
+          t.tabIndex = on ? 0 : -1;
+          document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+        });
+      }
+      tabs.forEach(function (t, i) {
+        t.addEventListener('click', function () { selectTab(t); });
+        t.addEventListener('keydown', function (e) {
+          var j = null;
+          if (e.key === 'ArrowRight') j = (i + 1) % tabs.length;
+          if (e.key === 'ArrowLeft') j = (i - 1 + tabs.length) % tabs.length;
+          if (e.key === 'Home') j = 0;
+          if (e.key === 'End') j = tabs.length - 1;
+          if (j !== null) { e.preventDefault(); selectTab(tabs[j]); tabs[j].focus(); }
+        });
+      });
+
+      /* ---------- Rainfall chart ---------- */
+      var rain = [
+        ['Jan', 15, 'Dry'], ['Feb', 40, 'Dry'], ['Mar', 90, 'Dry'], ['Apr', 140, 'Long rains'],
+        ['May', 210, 'Long rains'], ['Jun', 320, 'Long rains'], ['Jul', 180, 'Long rains'], ['Aug', 60, 'August break'],
+        ['Sep', 140, 'Short rains'], ['Oct', 160, 'Short rains'], ['Nov', 60, 'Dry'], ['Dec', 15, 'Dry']
+      ];
+      var chart = document.getElementById('rainChart');
+      var tip = document.getElementById('rainTip');
+      var NS = 'http://www.w3.org/2000/svg';
+      var W = 480, H = 240, padL = 34, padR = 4, padT = 20, padB = 24, maxV = 350;
+      var plotW = W - padL - padR, plotH = H - padT - padB, slot = plotW / rain.length, gap = 2, barW = slot - gap;
+
+      function el(name, attrs, parent) {
+        var n = document.createElementNS(NS, name);
+        for (var k in attrs) n.setAttribute(k, attrs[k]);
+        if (parent) parent.appendChild(n);
+        return n;
+      }
+      var svg = el('svg', { viewBox: '0 0 ' + W + ' ' + H, 'aria-hidden': 'true' }, chart);
+      [0, 100, 200, 300].forEach(function (v) {
+        var y = padT + plotH - (v / maxV) * plotH;
+        el('line', { x1: padL, x2: W - padR, y1: y, y2: y, 'class': 'gridline' }, svg);
+        el('text', { x: padL - 6, y: y + 4, 'text-anchor': 'end', 'class': 'axis-label' }, svg).textContent = v;
+      });
+      var bars = [];
+      var peak = rain.reduce(function (a, b) { return b[1] > a[1] ? b : a; });
+      rain.forEach(function (d, i) {
+        var h = (d[1] / maxV) * plotH, x = padL + i * slot + gap / 2, y = padT + plotH - h, r = Math.min(4, barW / 2, h);
+        // Rounded top, square baseline.
+        var p = 'M' + x + ',' + (padT + plotH) + 'V' + (y + r) + 'Q' + x + ',' + y + ' ' + (x + r) + ',' + y +
+                'H' + (x + barW - r) + 'Q' + (x + barW) + ',' + y + ' ' + (x + barW) + ',' + (y + r) + 'V' + (padT + plotH) + 'Z';
+        bars.push(el('path', { d: p, 'class': 'bar' }, svg));
+        el('text', { x: x + barW / 2, y: H - 6, 'text-anchor': 'middle', 'class': 'axis-label' }, svg).textContent = d[0];
+        if (d === peak) el('text', { x: x + barW / 2, y: y - 6, 'text-anchor': 'middle', 'class': 'val' }, svg).textContent = d[1];
+        var hit = el('rect', { x: padL + i * slot, y: padT, width: slot, height: plotH, 'class': 'hit' }, svg);
+        function show() {
+          bars.forEach(function (b, j) { b.classList.toggle('dim', j !== i); });
+          tip.innerHTML = '<b>' + d[0] + '</b>' + d[1] + ' mm · ' + d[2];
+          var box = chart.getBoundingClientRect(), wrap = chart.parentNode.getBoundingClientRect(), s = box.width / W;
+          tip.style.left = (box.left - wrap.left + (x + barW / 2) * s) + 'px';
+          tip.style.top = (box.top - wrap.top + y * s - 8) + 'px';
+          tip.style.opacity = 1;
+        }
+        function hide() { bars.forEach(function (b) { b.classList.remove('dim'); }); tip.style.opacity = 0; }
+        hit.addEventListener('mouseenter', show);
+        hit.addEventListener('click', show);
+        hit.addEventListener('mouseleave', hide);
+      });
+      var tbody = document.querySelector('#rainTable tbody');
+      rain.forEach(function (d) {
+        var tr = document.createElement('tr');
+        tr.innerHTML = '<td>' + d[0] + '</td><td>' + d[1] + '</td><td>' + d[2] + '</td>';
+        tbody.appendChild(tr);
+      });
+
+      /* ---------- Transport table: meters + sorting ---------- */
+      var tTable = document.getElementById('transportTable');
+      tTable.querySelectorAll('td[data-v]').forEach(function (td) {
+        var v = +td.dataset.v, html = '<span class="meter" aria-hidden="true">';
+        for (var i = 1; i <= 5; i++) html += '<i class="' + (i <= v ? 'on' : '') + '"></i>';
+        td.innerHTML = html + '</span> <span class="sr-only">' + v + ' out of 5</span>';
+      });
+      tTable.querySelectorAll('th button').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var th = btn.parentNode, col = +btn.dataset.key, num = btn.hasAttribute('data-num');
+          var dir = th.getAttribute('aria-sort') === 'ascending' ? 'descending' : 'ascending';
+          tTable.querySelectorAll('th').forEach(function (h) { if (h.hasAttribute('aria-sort')) h.setAttribute('aria-sort', 'none'); });
+          th.setAttribute('aria-sort', dir);
+          var body = tTable.tBodies[0], rows = Array.prototype.slice.call(body.rows);
+          rows.sort(function (a, b) {
+            var x = a.cells[col], y = b.cells[col];
+            var c = num ? (+x.dataset.v - +y.dataset.v) : x.textContent.localeCompare(y.textContent);
+            return dir === 'ascending' ? c : -c;
+          });
+          rows.forEach(function (r) { body.appendChild(r); });
+        });
+      });
+
+      /* ---------- Phrase copy ---------- */
+      document.querySelectorAll('.phrase .copy').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var text = btn.parentNode.querySelector('.say').textContent;
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(function () { toast('Copied "' + text + '"'); },
+              function () { toast('Copy isn\'t available here'); });
+          } else {
+            toast('Copy isn\'t available here');
+          }
+        });
+      });
+
+      /* ---------- Checklist ---------- */
+      var boxes = document.querySelectorAll('#checkList input');
+      var saved = {};
+      try { saved = JSON.parse(store('lagosGuideChecklist') || '{}') || {}; } catch (e) { saved = {}; }
+      function updateChecks() {
+        var done = 0, state = {};
+        boxes.forEach(function (b) { if (b.checked) { done++; state[b.dataset.id] = 1; } });
+        document.getElementById('checkCount').textContent = done + ' of ' + boxes.length + ' done';
+        document.getElementById('checkBar').style.width = (done / boxes.length * 100) + '%';
+        store('lagosGuideChecklist', JSON.stringify(state));
+      }
+      boxes.forEach(function (b) {
+        b.checked = !!saved[b.dataset.id];
+        b.addEventListener('change', updateChecks);
+      });
+      document.getElementById('checkReset').addEventListener('click', function () {
+        boxes.forEach(function (b) { b.checked = false; });
+        updateChecks();
+      });
+      updateChecks();
+
+      /* ---------- Contact form validation ---------- */
+      var form = document.getElementById('contactForm');
+      var ok = document.getElementById('formOk');
+      function check(id, test, msg) {
+        var input = document.getElementById(id), err = document.getElementById(id + 'Err');
+        var valid = test(input.value.trim());
+        err.textContent = valid ? '' : msg;
+        input.setAttribute('aria-invalid', String(!valid));
+        if (!valid) input.setAttribute('aria-describedby', id + 'Err'); else input.removeAttribute('aria-describedby');
+        return valid;
+      }
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        var a = check('fName', function (v) { return v.length > 1; }, 'Please enter your name.');
+        var b = check('fEmail', function (v) { return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v); }, 'Please enter a valid email address.');
+        var c = check('fMsg', function (v) { return v.length >= 10; }, 'Please write at least 10 characters.');
+        if (a && b && c) {
+          ok.textContent = 'Thanks, ' + document.getElementById('fName').value.trim() + '! Your suggestion looks good. (This demo doesn\'t send it anywhere.)';
+          ok.style.display = 'block';
+          form.reset();
+        } else {
+          ok.style.display = 'none';
+          form.querySelector('[aria-invalid="true"]').focus();
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
