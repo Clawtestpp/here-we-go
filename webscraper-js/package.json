@@ -1,0 +1,21 @@
+{
+  "name": "webscraper-js",
+  "version": "1.0.0",
+  "description": "A small, polite web scraper and crawler for Node.js",
+  "type": "module",
+  "main": "src/scraper.js",
+  "bin": {
+    "webscraper": "src/cli.js"
+  },
+  "scripts": {
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "robots-parser": "^3.0.1"
+  }
+}
